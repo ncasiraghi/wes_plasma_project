@@ -22,7 +22,7 @@ for(i in seq(1,nrow(filter))){
   min.tc <- filter$min.tc[i]
   
   label_out <- paste0("afn_",max.af.ctrl,"_aft_",min.af.case,"_mincov_",min.cov.case,"_mintc_",min.tc)
-  cat(label_out)
+  cat(label_out,"\n")
   
   # Tissue HaloPlex Strelka2 
   halo.calls = readLines(con = "/elaborazioni/sharedCO/Abemus_data_analysis/NimbleGen_SeqCapEZ_Exome_v3_Plasma_IPM/Strelka2/Tissue_HaloPlex/calls_strelka2.txt")
