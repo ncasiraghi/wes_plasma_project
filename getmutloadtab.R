@@ -11,15 +11,15 @@ setwd("/elaborazioni/sharedCO/Abemus_data_analysis/NimbleGen_SeqCapEZ_Exome_v3_P
 
 toolName <- "Strelka2"
 
-for(i in seq(1,nrow(filter))){
+for(indx in seq( 1 ,nrow(filter))){
   
-  min.af.case = filter$min.af.case[i]
-  min.cov.case = filter$min.cov[i] 
+  min.af.case = filter$min.af.case[indx]
+  min.cov.case = filter$min.cov[indx] 
   
-  max.af.ctrl = filter$max.af.ctrl[i]
-  min.cov.ctrl = filter$min.cov[i]
+  max.af.ctrl = filter$max.af.ctrl[indx]
+  min.cov.ctrl = filter$min.cov[indx]
   
-  min.tc <- filter$min.tc[i]
+  min.tc <- filter$min.tc[indx]
   
   label_out <- paste0("afn_",max.af.ctrl,"_aft_",min.af.case,"_mincov_",min.cov.case,"_mintc_",min.tc)
   cat(label_out,"\n")
@@ -131,12 +131,14 @@ for(i in seq(1,nrow(filter))){
   tabout <- c()
   for(i in 1:nrow(final)){
     x <- fread(input = final$calls[i],header = T,stringsAsFactors = F,data.table = F)
-    x <- x[which(x$af_case > min.af.case & x$cov_case > min.cov.case),]
-    x <- x[which(x$af_control < max.af.ctrl & x$cov_control > min.cov.ctrl),]
-    x$id.patient <- final$id.patient[i]
-    x$sample <- final$sample[i]
-    x$Type <- final$Type[i]
-    tabout <- rbind(tabout, x)
+    x <- x[which(x$af_case > min.af.case & x$cov_case > min.cov.case),,drop=F]
+    x <- x[which(x$af_control < max.af.ctrl & x$cov_control > min.cov.ctrl),,drop=F]
+    if(nrow(x)>0){
+      x$id.patient <- final$id.patient[i]
+      x$sample <- final$sample[i]
+      x$Type <- final$Type[i]
+      tabout <- rbind(tabout, x)
+    }
   }
   
   # < save outs >
