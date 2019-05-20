@@ -7,7 +7,7 @@ mlt_list <- grep(list.files(mutation_load_tables_folder,pattern = "MutationLoadT
 
 for(mlt in mlt_list){
   message(mlt)
-  pattern <- gsub(basename(mlt),pattern = "MutationLoadTable_Strelka2_",replacement = "")
+  pattern <- gsub(basename(mlt),pattern = "MutationLoadTable_",replacement = "")
   snt <- grep(list.files(mutation_load_tables_folder,pattern = "Table_SNVs_tissue_and_plasma_",full.names = T),pattern = pattern,value = T)
   load(mlt)
   load(snt)
