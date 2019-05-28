@@ -20,16 +20,16 @@ anns.tissue = unique(anns$sample[which(anns$type=="Tissue")])
 hnpc = unique(gsub(anns$sample[which(anns$type=="Plasma" & anns$class=="HNPC")],pattern = "-1st",replacement = ""))
 nepc = unique(gsub(anns$sample[which(anns$type=="Plasma" & anns$class=="CRPC-NE")],pattern = "-1st",replacement = ""))
 adeno= unique(gsub(anns$sample[which(anns$type=="Plasma" & anns$class=="CRPC-Adeno")],pattern = "-1st|-TP1|-TP2|-TP3|-TP4",replacement = ""))
-adeno = setdiff(adeno,c("PM14","PM185"))
+#adeno = setdiff(adeno,c("PM14","PM185"))
 
 # load the MutationLoadTable
 load(MutationLoadTable)
+final <- final[which(!final$id.case %in% c("PM14-TP2","PM14-TP3","PM14-TP4","PM185-TP2","PM185-TP3")),]
+
 final$class_plasma_based = NA
 final$class_plasma_based[which(final$id.patient %in% hnpc)] <- "HNPC"
 final$class_plasma_based[which(final$id.patient %in% nepc)] <- "CRPC-NE"
 final$class_plasma_based[which(final$id.patient %in% adeno)]<- "CRPC-Adeno"
-
-final[which(is.na(final$class_plasma_based)),]
 
 # Frequencies of aberration for Gene List
 get.final.freq <- function(data_out){
