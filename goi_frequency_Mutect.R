@@ -1,7 +1,7 @@
 wd <- "/elaborazioni/sharedCO/Abemus_data_analysis/NimbleGen_SeqCapEZ_Exome_v3_Plasma_IPM/Mutect_mutation_load_tables"
 setwd(wd)
 
-MutationLoadTable <- "/elaborazioni/sharedCO/Abemus_data_analysis/NimbleGen_SeqCapEZ_Exome_v3_Plasma_IPM/Mutect_mutation_load_tables/MutationLoadTable_Mutect_afn_0.01_aft_0.05_mincov_30_mintc_0.1.RData"
+MutationLoadTable <- "/elaborazioni/sharedCO/Abemus_data_analysis/NimbleGen_SeqCapEZ_Exome_v3_Plasma_IPM/Mutect_mutation_load_tables/MutationLoadTable_Mutect_afn_0.01_aft_0.05_mincov_30_mintc_0.RData"
 
 # Genes of interest
 goi = read.delim(file = "/elaborazioni/sharedCO/Abemus_data_analysis/NimbleGen_SeqCapEZ_Exome_v3_Plasma_IPM/abemus_plasma_tissues_distances/Genes_List_Plasma_Study_180321.txt",as.is = T,stringsAsFactors = F)
@@ -154,4 +154,4 @@ save(aberrant.plasma,
      aberrant.tissue,
      aberrant.tissue.adeno,
      aberrant.tissue.nepc,
-     file = "goi.aberrant.freq_Mutect_afn_0.01_aft_0.05_mincov_30_mintc_0.1.RData",compress = T)
+     file = gsub(basename(MutationLoadTable),pattern = "MutationLoadTable_Mutect",replacement = "goi.aberrant.freq_Mutect"),compress = T)
